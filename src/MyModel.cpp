@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "MyModel.hpp"
 
 //constexpr 
@@ -8,16 +10,16 @@ void printSeparated(string s){
     cout << string(40, '-') << s << string(40, '-') << "\n";
 }
 
-MyModel::MyModel()
+MyModel::MyModel(const std::string export_dir)
 {
     //TODO: make model path as a program parameter
-    const std::string export_dir = "/mnt/model_info_test/savetf_loadtf/output";
     SessionOptions session_options;
     RunOptions run_options;
     Status s = LoadSavedModel(session_options, run_options, export_dir, {kSavedModelTagServe},
                 &bundle_);
     std::cout << "Loading model status is: " << s << '\n';
-    //TODO: check status.
+    //TODO: check this tsl status!
+    assert(s == tsl::OkStatus());
     //TODO: maybe move session out of constructor
     sig_ = bundle_.GetSignatures();
     session_ = bundle_.GetSession();

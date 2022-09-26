@@ -3,12 +3,11 @@
 #include "tensorflow/cc/framework/ops.h"
 
 using namespace tensorflow;
-using namespace std;
 
 class MyModel
 {
 public:
-    MyModel();
+    MyModel(const std::string);
     ~MyModel();
 
     void printAllSignatureInfo();
